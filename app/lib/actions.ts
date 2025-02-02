@@ -35,7 +35,7 @@ export type State = {
     };
     message?: string | null;
 }
-export async function createInvoice(prevState: State, formData: FormData) {
+export async function createInvoice(prevState: State, formData: FormData): Promise<State>  {
 
     const validatedFields = CreateInvoice.safeParse({
         customerId: formData.get('customerId'),
@@ -61,7 +61,6 @@ export async function createInvoice(prevState: State, formData: FormData) {
     `
     } catch (error) {
         return {
-            errors: error, 
             message: 'Database Error: Failed to Create Invoice. ',
         }
     }
@@ -71,7 +70,7 @@ export async function createInvoice(prevState: State, formData: FormData) {
 
 }
 
-export async function updateInvoice(id: string, prevState: State, formData: FormData) {
+export async function updateInvoice(id: string, prevState: State, formData: FormData): Promise<State>  {
     const validatedFields = UpdateInvoice.safeParse({
         customerId: formData.get('customerId'),
         amount: formData.get('amount'),
@@ -96,7 +95,6 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
     `;
     } catch (error) {
         return {
-            errors: error, 
             message: 'Database Error: Failed to Edit Invoice. ',
         }
     }
